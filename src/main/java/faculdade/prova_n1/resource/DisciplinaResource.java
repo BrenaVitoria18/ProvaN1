@@ -1,8 +1,7 @@
 package faculdade.prova_n1.resource;
 
-
-import faculdade.prova_n1.model.Aluno;
-import faculdade.prova_n1.service.AlunoService;
+import faculdade.prova_n1.model.Disciplina;
+import faculdade.prova_n1.service.DisciplinaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @Slf4j
 @RestController
-@RequestMapping("api/aluno")
-@Tag(name = "aluno", description = "documentação do resource aluno")
-public class AlunoResource {
-
+@RequestMapping("api/disciplina")
+@Tag(name = "disciplina", description = "documentação do resource disciplina")
+public class DisciplinaResource {
     @Autowired
-    private AlunoService alunoService;
+    private DisciplinaService disciplinaService;
 
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON_VALUE,
@@ -31,57 +30,57 @@ public class AlunoResource {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Operation(
-            summary = "Cria um aluno",
-            description = "Método responsável para criar um aluno no sistema",
-            tags = {"aluno"})
+            summary = "Cria um disciplina",
+            description = "Método responsável para criar uma disciplina no sistema",
+            tags = {"disciplina"})
     @ApiResponses({
-            @ApiResponse(responseCode = "201", content = { @Content(schema = @Schema(implementation = Aluno.class), mediaType = MediaType.APPLICATION_JSON_VALUE) }),
+            @ApiResponse(responseCode = "201", content = { @Content(schema = @Schema(implementation = Disciplina.class), mediaType = MediaType.APPLICATION_JSON_VALUE) }),
             @ApiResponse(responseCode = "303", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "304", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 
 
-    public Aluno create(@RequestBody Aluno entity) {
+    public Disciplina create(@RequestBody Disciplina entity) {
 
-        log.info("Cadastro do aluno iniciado");
-        log.debug("Informações do aluno: {}", entity);
+        log.info("Cadastro da disciplina iniciado");
+        log.debug("Informações da disciplina: {}", entity);
 
-        return alunoService.criarAluno(entity);
+        return disciplinaService.criarDisciplina(entity);
     }
 
     @GetMapping(
             value = "/{id}",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @Operation(
-            summary = "Recupera um aluno baseado em um identificador",
-            description = "Método responsável para recuperar um aluno no sistema baseado no identificador",
-            tags = {"aluno"})
+            summary = "Recupera uma disciplina baseado em um identificador",
+            description = "Método responsável para recuperar uma disciplina no sistema baseado no identificador",
+            tags = {"disciplina"})
     @ApiResponses({
-            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Aluno.class), mediaType = MediaType.APPLICATION_JSON_VALUE) }),
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Disciplina.class), mediaType = MediaType.APPLICATION_JSON_VALUE) }),
             @ApiResponse(responseCode = "303", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 
-    public Aluno get(@PathVariable("id") Long id) {
-        return alunoService.listaAlunoPorId(id);
+    public Disciplina get(@PathVariable("id") Long id) {
+        return disciplinaService.listaDisciplinaPorId(id);
     }
 
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Operation(
-            summary = "Recupera uma lista de alunos",
-            description = "Método responsável para recuperar uma lista de alunos",
-            tags = {"aluno"})
+            summary = "Recupera uma lista de avaliacoes",
+            description = "Método responsável para recuperar uma lista de avaliacoes",
+            tags = {"disciplina"})
     @ApiResponses({
-            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Aluno.class), mediaType = MediaType.APPLICATION_JSON_VALUE) }),
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Disciplina.class), mediaType = MediaType.APPLICATION_JSON_VALUE) }),
             @ApiResponse(responseCode = "303", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 
-    public List<Aluno> get() {
-        return alunoService.listaTodosAlunos();
+    public List<Disciplina> get() {
+        return disciplinaService.listaTodasDisciplinas();
     }
 
 
@@ -91,30 +90,30 @@ public class AlunoResource {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Operation(
-            summary = "Atualiza todos os dados de um aluno",
-            description = "Método responsável para atualizar todos os dados de um aluno.",
-            tags = {"aluno"})
+            summary = "Atualiza todos os dados de um disciplina",
+            description = "Método responsável para atualizar todos os dados de um disciplina.",
+            tags = {"disciplina"})
     @ApiResponses({
-            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Aluno.class), mediaType = MediaType.APPLICATION_JSON_VALUE) }),
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Disciplina.class), mediaType = MediaType.APPLICATION_JSON_VALUE) }),
             @ApiResponse(responseCode = "303", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-    public Aluno update(@PathVariable Long id, @RequestBody Aluno entity) {
-        return alunoService.atualizar(id, entity);
+    public Disciplina update(@PathVariable Long id, @RequestBody Disciplina entity) {
+        return disciplinaService.atualizar(id, entity);
     }
 
 
     @DeleteMapping(value = "/{id}")
     @Operation(
-            summary = "Delete um aluno com base no identificador.",
-            description = "Método responsável para deletar um aluno com base no identificador.",
-            tags = {"aluno"})
+            summary = "Delete uma disciplina com base no identificador.",
+            description = "Método responsável para deletar um disciplina com base no identificador.",
+            tags = {"disciplina"})
     @ApiResponses({
-            @ApiResponse(responseCode = "206", content = { @Content(schema = @Schema(implementation = Aluno.class), mediaType = MediaType.APPLICATION_JSON_VALUE) }),
+            @ApiResponse(responseCode = "206", content = { @Content(schema = @Schema(implementation = Disciplina.class), mediaType = MediaType.APPLICATION_JSON_VALUE) }),
             @ApiResponse(responseCode = "303", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     public void delete(@PathVariable Long id) {
-        alunoService.deletar(id);
+        disciplinaService.deletar(id);
     }
 }

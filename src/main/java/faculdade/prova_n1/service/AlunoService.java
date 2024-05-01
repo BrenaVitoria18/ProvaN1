@@ -38,7 +38,7 @@ public class AlunoService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Aluno update(Long id, Aluno entity) {
+    public Aluno atualizar(Long id, Aluno entity) {
 
         Aluno alunoEncontrado = this.listaAlunoPorId(id);
 
@@ -48,6 +48,11 @@ public class AlunoService {
             return new Aluno();
         }
 
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deletar(Long id) {
+        alunoRepository.deleteById(id);
     }
 
 
